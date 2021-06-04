@@ -5,5 +5,6 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     res = requests.get('https://knmhttotriggerfunction.azurewebsites.net/api/knmHttpTriggerFunction', data={'name': 'hello azure'})
-    return "hello you"
-    # return res.text
+    res_txt = res.text
+
+    return res_txt
