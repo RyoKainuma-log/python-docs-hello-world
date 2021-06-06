@@ -1,4 +1,5 @@
 import json
+import os
 
 from flask import Flask, render_template, request
 import requests
@@ -13,9 +14,11 @@ def index():
 def req_function():
 
     name = request.args.get("name") if request.args.get("name") else "null"
-    payload = {'name': name}
-    res = requests.post("https://knmhttotriggerfunction.azurewebsites.net/api/knmHttpTriggerFunction", data=json.dumps(payload))
+    payload = {"name": name}
+    headers = {"x-functions-key": os.environ["FUNC_API_KEY"]}
+    res = requests.post("https://knmhttotriggerfunction.azurewebsites.net/api/knmHttpTriggerFunction", data=json.dumps(payload), headers=headers)
     # res = requests.get("https://knmhttotriggerfunction.azurewebsites.net/api/knmHttpTriggerFunction?name=" + name)
+    print(res)
     res_txt = res.text
 
     return res_txt
