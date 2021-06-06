@@ -12,7 +12,6 @@ def index():
 
 @app.route("/request")
 def req_function():
-
     name = request.args.get("name") if request.args.get("name") else "null"
     payload = {"name": name}
     headers = {"x-functions-key": os.environ["FUNC_API_KEY"]}
