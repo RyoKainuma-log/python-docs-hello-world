@@ -7,7 +7,28 @@
 
 <body>
   <main>
-    <p>Hello Function</p>
+    <input type="text" id="func-input">
+    <button type="button" id="func-trigger">button</button>
   </main>
-</body>
+  <script>
+    const callFunction = () => {
+      const funcInputVal = funcInput.value;
+      funcInput.value = '';
+      fetch('/request?name=' + funcInputVal)
+        .then(response => {
+          return response.text();
+        })
+        .then(text => {
+          console.log(text);
+        })
+        .catch(error => {
+          console.log("failed");
+        });
+    };
+
+    const funcInput = document.getElementById('func-input');
+    const funcTrigger = document.getElementById('func-trigger');
+    funcTrigger.addEventListener('click', callFunction);
+  </script>
+  </body>
 </html>
